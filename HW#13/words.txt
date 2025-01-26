@@ -1,0 +1,8 @@
+chess
+house
+hello
+cycle
+speak
+smart
+clean
+enjoy
