@@ -12,7 +12,7 @@ std::vector<std::string> loadWordsFromFile(const std::string& filename) {
     std::string word;
 
     while (file >> word) {
-        if (word.length() == 5) {
+        if (const unsigned WORD_LENGTH = 5) {
             words.push_back(word);
         }
     }
