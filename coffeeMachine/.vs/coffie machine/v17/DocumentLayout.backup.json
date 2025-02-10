@@ -1,0 +1,173 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Project\\coffie machine\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|D:\\Project\\coffie machine\\CoffeeMachineEmulator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|solutionrelative:CoffeeMachineEmulator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|D:\\Project\\coffie machine\\MilkReservoir.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|solutionrelative:MilkReservoir.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|D:\\Project\\coffie machine\\MilkReservoir.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|solutionrelative:MilkReservoir.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|D:\\Project\\coffie machine\\WaterReservoir.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|solutionrelative:WaterReservoir.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|D:\\Project\\coffie machine\\CoffeeMachine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|solutionrelative:CoffeeMachine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|D:\\Project\\coffie machine\\DrinkProgram.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|solutionrelative:DrinkProgram.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|D:\\Project\\coffie machine\\WaterReservoir.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|solutionrelative:WaterReservoir.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|D:\\Project\\coffie machine\\DrinkProgram.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|solutionrelative:DrinkProgram.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|D:\\Project\\coffie machine\\CofeeMachine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{22A22C6F-8103-4B8F-B31D-457F88CDC8EA}|coffie machine.vcxproj|solutionrelative:CofeeMachine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CoffeeMachine.h",
+              "DocumentMoniker": "D:\\Project\\coffie machine\\CoffeeMachine.h",
+              "RelativeDocumentMoniker": "CoffeeMachine.h",
+              "ToolTip": "D:\\Project\\coffie machine\\CoffeeMachine.h",
+              "RelativeToolTip": "CoffeeMachine.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-02-10T17:50:23.643Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MilkReservoir.h",
+              "DocumentMoniker": "D:\\Project\\coffie machine\\MilkReservoir.h",
+              "RelativeDocumentMoniker": "MilkReservoir.h",
+              "ToolTip": "D:\\Project\\coffie machine\\MilkReservoir.h",
+              "RelativeToolTip": "MilkReservoir.h",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-02-10T17:52:39.499Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WaterReservoir.h",
+              "DocumentMoniker": "D:\\Project\\coffie machine\\WaterReservoir.h",
+              "RelativeDocumentMoniker": "WaterReservoir.h",
+              "ToolTip": "D:\\Project\\coffie machine\\WaterReservoir.h",
+              "RelativeToolTip": "WaterReservoir.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-02-10T17:53:50.749Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MilkReservoir.cpp",
+              "DocumentMoniker": "D:\\Project\\coffie machine\\MilkReservoir.cpp",
+              "RelativeDocumentMoniker": "MilkReservoir.cpp",
+              "ToolTip": "D:\\Project\\coffie machine\\MilkReservoir.cpp",
+              "RelativeToolTip": "MilkReservoir.cpp",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-10T18:10:41.97Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CoffeeMachineEmulator.cpp",
+              "DocumentMoniker": "D:\\Project\\coffie machine\\CoffeeMachineEmulator.cpp",
+              "RelativeDocumentMoniker": "CoffeeMachineEmulator.cpp",
+              "ToolTip": "D:\\Project\\coffie machine\\CoffeeMachineEmulator.cpp",
+              "RelativeToolTip": "CoffeeMachineEmulator.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-10T17:51:16.878Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DrinkProgram.h",
+              "DocumentMoniker": "D:\\Project\\coffie machine\\DrinkProgram.h",
+              "RelativeDocumentMoniker": "DrinkProgram.h",
+              "ToolTip": "D:\\Project\\coffie machine\\DrinkProgram.h",
+              "RelativeToolTip": "DrinkProgram.h",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB4AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-02-10T17:52:08.144Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "WaterReservoir.cpp",
+              "DocumentMoniker": "D:\\Project\\coffie machine\\WaterReservoir.cpp",
+              "RelativeDocumentMoniker": "WaterReservoir.cpp",
+              "ToolTip": "D:\\Project\\coffie machine\\WaterReservoir.cpp",
+              "RelativeToolTip": "WaterReservoir.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-10T17:53:09.271Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DrinkProgram.cpp",
+              "DocumentMoniker": "D:\\Project\\coffie machine\\DrinkProgram.cpp",
+              "RelativeDocumentMoniker": "DrinkProgram.cpp",
+              "ToolTip": "D:\\Project\\coffie machine\\DrinkProgram.cpp",
+              "RelativeToolTip": "DrinkProgram.cpp",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAGoAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-10T17:51:52.9Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CofeeMachine.cpp",
+              "DocumentMoniker": "D:\\Project\\coffie machine\\CofeeMachine.cpp",
+              "RelativeDocumentMoniker": "CofeeMachine.cpp",
+              "ToolTip": "D:\\Project\\coffie machine\\CofeeMachine.cpp",
+              "RelativeToolTip": "CofeeMachine.cpp",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAAAMMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-10T17:48:34.225Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
