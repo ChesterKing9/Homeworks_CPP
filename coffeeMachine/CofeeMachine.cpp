@@ -31,6 +31,8 @@ void CoffeeMachine::showMenu()
         m_waterReservoir.showOperations();
         break;
     default:
+    case CoffeeMachineState::MilkReservoir:
+        m_milkReservoir.showOperations();
         break;
     }
 
@@ -52,6 +54,9 @@ void CoffeeMachine::receiveInput()
         m_waterReservoir.receiveInput();    //switching to reservoir input handler
         break;
     default:
+        break;
+    case CoffeeMachineState::MilkReservoir:
+        m_milkReservoir.receiveInput();
         break;
     }
 }
@@ -80,6 +85,11 @@ void CoffeeMachine::update()
         m_waterReservoir.update();
         m_currentState = CoffeeMachineState::MainMenu;
         break;
+    default:
+    case CoffeeMachineState::MilkReservoir:
+        m_milkReservoir.update();
+        m_currentState = CoffeeMachineState::MainMenu;
+        break;
     case CoffeeMachineState::PowerOffRequest:
     {
         powerOff();
@@ -91,8 +101,6 @@ void CoffeeMachine::update()
         break;
     }
     case CoffeeMachineState::CoffeeGrain:
-        break;
-    default:
         break;
     }
 }
@@ -129,6 +137,9 @@ void CoffeeMachine::selectNewMenuFromMain()
         break;
     case 2:
         m_currentState = CoffeeMachineState::WaterReservoir;
+        break;
+    case 3:
+        m_currentState = CoffeeMachineState::MilkReservoir;
         break;
     case 5:
         m_currentState = CoffeeMachineState::PowerOffRequest;
