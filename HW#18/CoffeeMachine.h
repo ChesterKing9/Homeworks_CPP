@@ -1,76 +1,33 @@
 #pragma once
-#include <vector>
 #include <iostream>
-
-#include "WaterReservoir.h"
+#include <vector>
 #include "DrinkProgram.h"
-#include "MilkReservoir.h"
+#include "CoffeeMachineState.h"
+#include "Reservoir.h"
 
-class CoffeeGrainsContainer
-{
-    //not used yet
-};
-
-
-enum class CoffeeMachineState
-{
-    Sleep,
-    PowerOffRequest,
-
-    MainMenu,
-
-    WaterReservoir,
-    MilkReservoir,
-    CoffeeGrain,    //Not implemented yet
-
-    DrinkSelection,
-    DrinkPreparation,
-
-    LowWaterError,
-};
-
-
-class CoffeeMachine
-{
+class CoffeeMachine {
 public:
-    ~CoffeeMachine()
-    {
-        //TODO HW: clear recipes memory from vector}
-    }
-
+    ~CoffeeMachine();
     bool IsBooted() const { return !m_powerOffRequest; }
-
     void initDefaultDrinks();
-    void addDrinkReceipt(DrinkProgram* program) { m_recipes.push_back(program); }
-
+    void addDrinkReceipt(DrinkProgram* program);
     void showMenu();
     void receiveInput();
     void update();
-
-private:
-    void powerOn();
-    void powerOff();
-
-    void selectNewMenuFromMain();
-
+    void setState(CoffeeMachineState* newState);
     void showListOfDrinks();
     void prepareDrink();
     void selectDrink();
-
-    void showLowWaterError();
-
-public:
+    void accessWaterReservoir();
+    void accessMilkReservoir();
+    void accessCoffeeGrainsContainer();
+private:
+    CoffeeMachineState* m_currentState;
     std::vector<DrinkProgram*> m_recipes;
     DrinkProgram* m_SelectedDrink = nullptr;
-
-    WaterReservoir m_waterReservoir;
-    MilkReservoir m_milkReservoir;
-
+    Reservoir* m_waterReservoir;
+    Reservoir* m_milkReservoir;
+    Reservoir* m_coffeeGrainsContainer;
     int m_currentChoice = -1;
-    CoffeeMachineState m_currentState = CoffeeMachineState::Sleep;
-
     bool m_powerOffRequest = false;
-
-private:
-    friend class DrinkProgram;
 };

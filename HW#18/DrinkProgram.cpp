@@ -1,268 +1,64 @@
-#include "DrinkProgram.h"
 #include "CoffeeMachine.h"
-#include "MilkReservoir.h"
-#include <chrono>
-#include <thread>
+#include "DrinkProgram.h"
+#include <iostream>
 
-DrinkProgram::DrinkProgram(DrinkType type, CoffeeMachine& context) :
-    m_drinkType(type),
-    m_context(context) {
+
+void CoffeeMachine::initDefaultDrinks() {
+    m_recipes.push_back(new Espresso(*this));
+    m_recipes.push_back(new Cappuccino(*this));
+    m_recipes.push_back(new BlackTea(*this));
+    m_recipes.push_back(new GreenTea(*this));
+    m_currentState = new SleepState();
 }
 
-void DrinkProgram::showInfo()
-{
-    switch (m_drinkType)
-    {
-    case DrinkType::Espresso:
-        std::cout << "Espresso!";
-        break;
-    case DrinkType::Cappuccino:
-        std::cout << "Cappuccino!";
-        break;
-    case DrinkType::GreenTea:
-        std::cout << "Green Tea!";
-        break;
-    case DrinkType::BlackTea:
-        std::cout << "Black Tea!";
-        break;
-    case DrinkType::TeaWithMilk:
-        std::cout << "Tea With Milk!";
-        break;
-    default:
-        break;
+void CoffeeMachine::setState(CoffeeMachineState* newState) {
+    delete m_currentState;
+    m_currentState = newState;
+}
+
+void CoffeeMachine::showMenu() {
+    m_currentState->showMenu(*this);
+}
+
+void CoffeeMachine::receiveInput() {
+    m_currentState->receiveInput(*this);
+}
+
+void CoffeeMachine::update() {
+    m_currentState->update(*this);
+}
+
+void CoffeeMachine::showListOfDrinks() {
+    std::cout << "\nAvailable Drinks:\n";
+    for (size_t i = 0; i < m_recipes.size(); ++i) {
+        std::cout << i + 1 << ". ";
+        m_recipes[i]->showInfo();
+        std::cout << "\n";
     }
 }
 
-DrinkProgramStatus DrinkProgram::prepare()
-{
-    switch (m_drinkType)
-    {
-    case DrinkType::Espresso:
-    {
-        return prepareEspresso();
+void CoffeeMachine::selectDrink() {
+    int choice;
+    std::cout << "Select a drink: ";
+    std::cin >> choice;
+    if (choice > 0 && choice <= static_cast<int>(m_recipes.size())) {
+        m_SelectedDrink = m_recipes[choice - 1];
+        prepareDrink();
     }
-    case DrinkType::Cappuccino:
-    {
-        return prepareCappuccino();
-    }
-    case DrinkType::GreenTea:
-    {
-        return prepareGreenTea();
-    }
-    case DrinkType::BlackTea:
-    {
-        return prepareBlackTea();
-    }
-    case DrinkType::TeaWithMilk:
-    {
-        return prepareTeaWithMilk();
-    }
-    default:
-        break;
-    };
-
-    return DrinkProgramStatus::Success;
 }
 
-DrinkProgramStatus DrinkProgram::prepareEspresso()
-{
-    const double EspressoVolume = 0.05; 
-
-    if (m_context.m_waterReservoir.getVolume() < EspressoVolume)
-    {
-        std::cout << "Low water level!" << std::endl;
-        return DrinkProgramStatus::LowWater;
+void CoffeeMachine::prepareDrink() {
+    if (!m_SelectedDrink) return;
+    DrinkProgramStatus status = m_SelectedDrink->prepare();
+    if (status == DrinkProgramStatus::LowWater) {
+        std::cout << "LOW WATER! Please refill the container.\n";
     }
-
-    m_context.m_waterReservoir.useWater(EspressoVolume);
-
-    std::cout << "\n\nGrrr ";
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << ".";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << ".";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << ".";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-
-    std::cout << "\nPreparing... Espresso... ";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    for (int i = 5; i > 3; i--)
-    {
-        std::cout << i << ".";
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        std::cout << ".";
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-
-    std::cout << "..Hanging... ";
-    std::this_thread::sleep_for(std::chrono::seconds(3));
-
-    std::cout << "DONE!\n\n";
-
-    return DrinkProgramStatus::Success;
 }
 
-DrinkProgramStatus DrinkProgram::prepareCappuccino()
-{
-    const double CappuccinoWaterVolume = 0.05;
-    const double CappuccinoMilkVolume = 0.02;
-
-    if (m_context.m_waterReservoir.getVolume() < CappuccinoWaterVolume)
-    {
-        return DrinkProgramStatus::LowWater;
-    }
-
-    if (m_context.m_milkReservoir.getVolume() < CappuccinoMilkVolume)
-    {
-        
-        return DrinkProgramStatus::LowMilk;
-    }
-
-    m_context.m_waterReservoir.useWater(CappuccinoWaterVolume);
-    m_context.m_milkReservoir.useMilk(CappuccinoMilkVolume);
-
-    std::cout << "\n\nGrrr ";
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << ".";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << ".";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << ".";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-
-    std::cout << "\nPreparing... Cappuccino... ";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    for (int i = 5; i > 3; i--)
-    {
-        std::cout << i << ".";
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        std::cout << ".";
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-
-    std::cout << "..Hanging... ";
-    std::this_thread::sleep_for(std::chrono::seconds(3));
-
-    std::cout << "DONE!\n\n";
-
-    return DrinkProgramStatus::Success;
+void CoffeeMachine::accessWaterReservoir() {
+    m_waterReservoir.showOperations();
 }
 
-DrinkProgramStatus DrinkProgram::prepareGreenTea()
-{
-	const double GreenTeaVolume = 0.05;
-	if (m_context.m_waterReservoir.getVolume() < GreenTeaVolume)
-	{
-		return DrinkProgramStatus::LowWater;
-	}
-	m_context.m_waterReservoir.useWater(GreenTeaVolume);
-
-	std::cout << "\n\nGrrr ";
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	std::cout << ".";
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	std::cout << ".";
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	std::cout << ".";
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-
-	std::cout << "\nPreparing... Green Tea... ";
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	for (int i = 5; i > 3; i--)
-	{
-		std::cout << i << ".";
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-		std::cout << ".";
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-	}
-	std::cout << "..Hanging... ";
-	std::this_thread::sleep_for(std::chrono::seconds(3));
-
-	std::cout << "DONE!\n\n";
-
-	return DrinkProgramStatus::Success;
-}
-
-DrinkProgramStatus DrinkProgram::prepareBlackTea()
-{
-	const double BlackTeaVolume = 0.05;
-	if (m_context.m_waterReservoir.getVolume() < BlackTeaVolume)
-	{
-		return DrinkProgramStatus::LowWater;
-	}
-
-	m_context.m_waterReservoir.useWater(BlackTeaVolume);
-	std::cout << "\n\nGrrr ";
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	std::cout << ".";
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	std::cout << ".";
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	std::cout << ".";
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	std::cout << "\nPreparing... Black Tea... ";
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-
-	for (int i = 5; i > 3; i--)
-	{
-		std::cout << i << ".";
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-		std::cout << ".";
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-	}
-	std::cout << "..Hanging... ";
-	std::this_thread::sleep_for(std::chrono::seconds(3));
-	std::cout << "DONE!\n\n";
-
-	return DrinkProgramStatus::Success;
-}
-
-DrinkProgramStatus DrinkProgram::prepareTeaWithMilk()
-{
-    const double TeaWithMilkWaterVolume = 0.05;
-    const double TeaWithMilkMilkVolume = 0.02;
-
-    if (m_context.m_waterReservoir.getVolume() < TeaWithMilkWaterVolume)
-    {
-        return DrinkProgramStatus::LowWater;
-    }
-
-    if (m_context.m_milkReservoir.getVolume() < TeaWithMilkMilkVolume)
-    {
-
-        return DrinkProgramStatus::LowMilk;
-    }
-
-    m_context.m_waterReservoir.useWater(TeaWithMilkWaterVolume);
-    m_context.m_milkReservoir.useMilk(TeaWithMilkMilkVolume);
-
-    std::cout << "\n\nGrrr ";
-
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << ".";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << ".";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << ".";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-
-    std::cout << "\nPreparing... TeaWithMilk... ";
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    for (int i = 5; i > 3; i--)
-    {
-        std::cout << i << ".";
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        std::cout << ".";
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-
-    std::cout << "..Hanging... ";
-    std::this_thread::sleep_for(std::chrono::seconds(3));
-
-    std::cout << "DONE!\n\n";
-
-    return DrinkProgramStatus::Success;
+void CoffeeMachine::accessMilkReservoir() {
+    m_milkReservoir.showOperations();
 }

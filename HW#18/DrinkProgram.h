@@ -1,38 +1,51 @@
 #pragma once
 #include "CoffeeMachine.h"
-#include <iostream>
 
-//enum class DrinkType
-//{
-//    Espresso,
-//    Cappuccino,
-//    GreenTea,
-//    BlackTea,
-//    TeaWithMilk
-//};
-
-enum class DrinkProgramStatus
-{
-    Success = 0,
-    LowWater,
-    LowMilk,
-    CleanNeeded,    //Not implemented
-};
-
-class CoffeeMachine;
-
-
-class DrinkProgram
-{
+class DrinkProgram {
 public:
-    virtual ~DrinkProgram() = default; 
-
+    virtual ~DrinkProgram() = default;
     virtual void showInfo() const = 0;
     virtual DrinkProgramStatus prepare() = 0;
-
-protected:
-	DrinkProgram(CoffeeMachine& context) : m_context(context) {}
-
-	CoffeeMachine& m_context;
 };
 
+class Coffee : public DrinkProgram {
+public:
+    Coffee(CoffeeMachine& context) : m_context(context) {}
+protected:
+    CoffeeMachine& m_context;
+};
+
+class Espresso : public Coffee {
+public:
+    Espresso(CoffeeMachine& context) : Coffee(context) {}
+    void showInfo() const override;
+    DrinkProgramStatus prepare() override;
+};
+
+class Cappuccino : public Coffee {
+public:
+    Cappuccino(CoffeeMachine& context) : Coffee(context) {}
+    void showInfo() const override;
+    DrinkProgramStatus prepare() override;
+};
+
+class Tea : public DrinkProgram {
+public:
+    Tea(CoffeeMachine& context) : m_context(context) {}
+protected:
+    CoffeeMachine& m_context;
+};
+
+class BlackTea : public Tea {
+public:
+    BlackTea(CoffeeMachine& context) : Tea(context) {}
+    void showInfo() const override;
+    DrinkProgramStatus prepare() override;
+};
+
+class GreenTea : public Tea {
+public:
+    GreenTea(CoffeeMachine& context) : Tea(context) {}
+    void showInfo() const override;
+    DrinkProgramStatus prepare() override;
+};

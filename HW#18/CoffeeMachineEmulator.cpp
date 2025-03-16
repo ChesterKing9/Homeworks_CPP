@@ -1,17 +1,11 @@
 #include <iostream>
-#include <vector>
-
 #include "CoffeeMachine.h"
-#include "DrinkProgram.h"
 
-int main()
-{
+int main() {
     CoffeeMachine machine;
+    machine.initDefaultDrinks();
 
-    machine.initDefaultDrinks();    //available drinks
-
-    while (machine.IsBooted())
-    {
+    while (machine.IsBooted()) {
         machine.showMenu();
         machine.receiveInput();
         machine.update();

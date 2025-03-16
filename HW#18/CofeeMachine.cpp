@@ -1,214 +1,91 @@
 #include "CoffeeMachine.h"
 #include "DrinkProgram.h"
-#include "Coffee.h"
-#include "Tea.h"
-#include <iostream> 
+#include <iostream>
 
-void CoffeeMachine::initDefaultDrinks()
-{
-    m_recipes.push_back(new Espresso (*this));
-    m_recipes.push_back(new Cappuccino (*this));
-    m_recipes.push_back(new GreenTea (*this));
-    m_recipes.push_back(new BlackTea (*this));
-    m_recipes.push_back(new TeaWithMilk (*this));
+CoffeeMachine::CoffeeMachine()
+    : m_waterReservoir(new WaterReservoir()),
+    m_milkReservoir(new MilkReservoir()),
+    m_coffeeGrainsContainer(new CoffeeGrainsContainer()),
+    m_currentState(new SleepState()) {
 }
 
-void CoffeeMachine::showMenu()
-{
-    switch (m_currentState)
-    {
-    case CoffeeMachineState::Sleep:
-        std::cout << "1. POWER ON\n";
-        break;
-    case CoffeeMachineState::MainMenu:
-    {
-        std::cout << "\n1. Prepare Drink\n";
-        std::cout << "2. Access Water Reservoir\n";
-        std::cout << "3. Access Milk Reservoir\n";
-        std::cout << "4. Access Coffe Grain Container\n";
-        std::cout << "5. Power off\n";
-        break;
+CoffeeMachine::~CoffeeMachine() {
+    for (auto* drink : m_recipes) {
+        delete drink;
     }
-    case CoffeeMachineState::DrinkSelection:
-    {
-        showListOfDrinks();
-        break;
-    }
-    case CoffeeMachineState::WaterReservoir:
-        m_waterReservoir.showOperations();
-        break;
-    default:
-    case CoffeeMachineState::MilkReservoir:
-        m_milkReservoir.showOperations();
-        break;
-    }
-
+    m_recipes.clear();
+    delete m_currentState;
+    delete m_waterReservoir;
+    delete m_milkReservoir;
+    delete m_coffeeGrainsContainer;
 }
 
-void CoffeeMachine::receiveInput()
-{
-    switch (m_currentState)
-    {
-    case CoffeeMachineState::Sleep:
-    case CoffeeMachineState::MainMenu:
-    case CoffeeMachineState::DrinkSelection:
-    {
-        std::cout << "Choice: ";
-        std::cin >> m_currentChoice;    //Used in update method
-        break;
-    }
-    case CoffeeMachineState::WaterReservoir:
-        m_waterReservoir.receiveInput();    //switching to reservoir input handler
-        break;
-    default:
-        break;
-    case CoffeeMachineState::MilkReservoir:
-        m_milkReservoir.receiveInput(); 
-        break;
-    }
+void CoffeeMachine::initDefaultDrinks() {
+    m_recipes.push_back(new Espresso(*this));
+    m_recipes.push_back(new Cappuccino(*this));
+    m_recipes.push_back(new BlackTea(*this));
+    m_recipes.push_back(new GreenTea(*this));
 }
 
-void CoffeeMachine::update()
-{
-    switch (m_currentState)
-    {
-    case CoffeeMachineState::Sleep:
-    {
-        powerOn();
-        break;
+void CoffeeMachine::setState(CoffeeMachineState* newState) {
+    if (m_currentState) {
+        delete m_currentState;
     }
-    case CoffeeMachineState::MainMenu:
-        //Moving to sub-menu animation
-        selectNewMenuFromMain();
-        break;
-    case CoffeeMachineState::DrinkSelection:
-        //Moving to drinks sub-menu cool animation
-        selectDrink();
-        break;
-    case CoffeeMachineState::DrinkPreparation:
-        prepareDrink();
-        break;
-    case CoffeeMachineState::WaterReservoir:
-        m_waterReservoir.update();
-        m_currentState = CoffeeMachineState::MainMenu;
-        break;
-    default:
-    case CoffeeMachineState::MilkReservoir:
-        m_milkReservoir.update(); 
-        m_currentState = CoffeeMachineState::MainMenu;
-        break;
-    case CoffeeMachineState::PowerOffRequest:
-    {
-        powerOff();
-        break;
-    }
-    case CoffeeMachineState::LowWaterError:
-    {
-        showLowWaterError();
-        break;
-    }
-    case CoffeeMachineState::CoffeeGrain:
-        break;
-    }
+    m_currentState = newState ? newState : new SleepState();
 }
 
-void CoffeeMachine::powerOn()
-{
-    if (m_currentChoice == 1)
-    {
-        std::cout << "\nGrrrr... Self diagnostics... Checking water level...\n";
-
-        if (m_waterReservoir.getVolume() <= 0.0f)
-        {
-            m_currentState = CoffeeMachineState::LowWaterError;
-        }
-        else
-        {
-            m_currentState = CoffeeMachineState::MainMenu;
-        }
-    }
+void CoffeeMachine::showMenu() {
+    m_currentState->showMenu(*this);
 }
 
-void CoffeeMachine::powerOff()
-{
-    std::cout << "Grrrrrr.... Bye-bye... (Cool animation's playing)\n\n\n";
-    m_powerOffRequest = true;
+void CoffeeMachine::receiveInput() {
+    m_currentState->receiveInput(*this);
 }
 
-void CoffeeMachine::selectNewMenuFromMain()
-{
-    switch (m_currentChoice)
-    {
-    case 1:
-        m_currentState = CoffeeMachineState::DrinkSelection;
-        break;
-    case 2:
-        m_currentState = CoffeeMachineState::WaterReservoir;
-        break;
-    case 3:
-        m_currentState = CoffeeMachineState::MilkReservoir; 
-        break;
-    case 5:
-        m_currentState = CoffeeMachineState::PowerOffRequest;
-        break;
-    default:
-        m_currentState = CoffeeMachineState::MainMenu;
-        break;
-    }
+void CoffeeMachine::update() {
+    m_currentState->update(*this);
 }
 
-void CoffeeMachine::showListOfDrinks()
-{
-    std::cout << std::endl;
-    for (int i = 0; i < m_recipes.size(); i++)
-    {
+void CoffeeMachine::showListOfDrinks() {
+    std::cout << "\nAvailable Drinks:\n";
+    for (size_t i = 0; i < m_recipes.size(); ++i) {
         std::cout << i + 1 << ". ";
         m_recipes[i]->showInfo();
-        std::cout << std::endl;
+        std::cout << "\n";
     }
 }
 
-void CoffeeMachine::selectDrink()
-{
-    const int receipeIdx = m_currentChoice - 1;
-    if (receipeIdx >= 0 && receipeIdx < m_recipes.size())
-    {
-        m_SelectedDrink = m_recipes[receipeIdx];
-    }
-
-    if (m_SelectedDrink != nullptr)
-    {
-        m_currentState = CoffeeMachineState::DrinkPreparation;
-    }
-    else
-    {
-        m_currentState = CoffeeMachineState::DrinkSelection;
+void CoffeeMachine::selectDrink() {
+    int choice;
+    std::cout << "Select a drink: ";
+    std::cin >> choice;
+    if (choice > 0 && choice <= static_cast<int>(m_recipes.size())) {
+        m_SelectedDrink = m_recipes[choice - 1];
+        if (m_SelectedDrink) {
+            prepareDrink();
+        }
     }
 }
 
-void CoffeeMachine::showLowWaterError()
-{
-    std::cout << "LOW WATER, please refill the water container!\n";
-    m_currentState = CoffeeMachineState::MainMenu;
+DrinkProgramStatus CoffeeMachine::prepareDrink() {
+    if (!m_SelectedDrink) return DrinkProgramStatus::LowWater;
+    return m_SelectedDrink->prepare();
 }
 
-void CoffeeMachine::prepareDrink()
-{
-    //Sanity check. Ideally we shouldn't get this far is a drink wasn't selected correctly
-    if (m_SelectedDrink == nullptr)
-    {
-        m_currentState = CoffeeMachineState::DrinkSelection;
-        return;
-    }
+void CoffeeMachine::accessWaterReservoir() {
+    m_waterReservoir->showOperations();
+    m_waterReservoir->receiveInput();
+    m_waterReservoir->update();
+}
 
-    const DrinkProgramStatus status = m_SelectedDrink->prepare();
+void CoffeeMachine::accessMilkReservoir() {
+    m_milkReservoir->showOperations();
+    m_milkReservoir->receiveInput();
+    m_milkReservoir->update();
+}
 
-    if (status == DrinkProgramStatus::Success)
-    {
-        m_currentState = CoffeeMachineState::MainMenu;
-    }
-    else if (status == DrinkProgramStatus::LowWater)
-    {
-        m_currentState = CoffeeMachineState::LowWaterError;
-    }
+void CoffeeMachine::accessCoffeeGrainsContainer() {
+    m_coffeeGrainsContainer->showOperations();
+    m_coffeeGrainsContainer->receiveInput();
+    m_coffeeGrainsContainer->update();
 }
